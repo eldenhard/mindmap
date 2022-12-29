@@ -1,13 +1,10 @@
 .node {
   cursor: pointer;
 }
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
+
 .node text {
-  font: 10px sans-serif;
+  font: 11px 'Montserrat', sans-serif;
+  font-weight: 600;
 }
 .link {
   fill: none;
@@ -20,8 +17,13 @@ body {
 }
 
 svg{
-  background: rgb(170, 170, 170);
+  background: rgb(255, 255, 255);
   position: relative;
   left: 50%;
   transform: translate(-50%,0);
+  cursor: grab;
+  border: 1px solid lightgrey;
+}
+svg:active{
+  cursor: grabbing;
 }
