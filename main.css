@@ -1,7 +1,10 @@
 .node {
   cursor: pointer;
 }
-
+hr {
+  margin: 0;
+  padding: 0;
+}
 .node text {
   font: 11px 'Montserrat', sans-serif;
   font-weight: 600;
@@ -17,35 +20,50 @@ body {
   overflow: hidden;
 }
 
-#body {
-  background: lightgrey;
-}
 
 svg {
   background: rgb(255, 255, 255);
-  position: relative;
+  /* background: red; */
+  position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
   cursor: grab;
-  border: 1px solid rgb(192, 192, 192);
+  border-bottom: 1px solid rgb(192, 192, 192);
 }
 
 svg:active {
   cursor: grabbing;
 }
+.navbar {
+  background-color:#000;
+}
+nav {
+  height:70px;
+}
+.navbar-nav {
+  margin:auto;
+}
+.nav-link {
+  margin:10px 25px;
+  color:#fff;
+  font-size: 18px;
+}
+.nav-link:hover {
+  color:#EDBF35;
+}
 
 .info-block {
   background-color: rgb(255, 255, 255);
-  width: 45%;
-  height: 900px;
-  margin-top: 0.5em;
+  width: 35%;
+  height: 800px;
   position: absolute;
   right: 0;
-  top: 0;
   z-index: 1;
   border: 1px solid lightgray;
   display: none;
+  margin: none !important;
 }
+
 .info-block-wrapper{
   padding: 20px;
 }
@@ -70,4 +88,71 @@ svg:active {
 }
 #name_en{
   text-align: center;
+  color: grey;
 }
+.subscribe{
+ background:  #FF0000;
+ color: white;
+ border-radius: 10px;
+ padding: 0 10px;
+}
+.subscribe:hover{
+  background:  #d60000;
+}
+.main-block{
+  width: 38%;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%,0);
+  margin-top: 2%;
+}
+.main-block h1 p{
+  text-align: left;
+}
+
+.link{
+	color: #000000;
+	font-size: 16px;
+	font-weight: 700;
+
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.link{
+	position: relative;
+	z-index: 1;
+	display: inline-flex;
+	/* padding-left: 10px;
+	padding-bottom: 5px;
+	padding-right: 10px; */
+}
+
+.link::before{
+	content: "";
+	width: 100%;
+	height: 100%;
+	background-image: linear-gradient(to top, #fed330 25%, rgba(0, 0, 0, 0) 40%);
+	position: absolute;
+	left: 0;
+	bottom: 2px;
+	z-index: -1;
+	
+	will-change: width;
+	transform: rotate(-2deg);
+	transform-origin: left bottom
+}
+
+.link:hover::before{
+	width: 0;
+  color: #000000;
+}
+
+.link::before{
+	transition: width .1s ease-out;
+}
+
+.link:hover::before{
+	transition-duration: .15s;
+}
+

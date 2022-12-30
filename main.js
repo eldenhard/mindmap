@@ -15,7 +15,7 @@ fetch('http://83.167.124.57/get-tree/')
                 let root = {}
                 root = res[0];
                 let i = 0,
-                    // Размер прямoугольников
+                // Размер прямoугольников
                     duration = 750,
                     rectW = 300,
                     rectH = 30;
@@ -23,11 +23,11 @@ fetch('http://83.167.124.57/get-tree/')
                 let tree = d3.layout.tree().nodeSize([320, 40]);
                 let diagonal = d3.svg.diagonal()
                     .projection(function (d) {
-                        // Откуда будут исходить стрелки к элементам(ставит посередине блока)
+                // Откуда будут исходить стрелки к элементам(ставит посередине блока)
                         return [d.x + rectW / 2, d.y + rectH / 2];
                     });
                 // Задает ширину блока в котором находится схема
-                let svg = d3.select("#body").append("svg").attr("width", "100%").attr("height", 900)
+                let svg = d3.select("#body").append("svg").attr("width", "100%").attr("height", 800)
                     // Приближение отдаление
                     .call(zm = d3.behavior.zoom().scaleExtent([0.4, 10]).on("zoom", redraw)).append("g")
                     // Задает положение блока схемы внутри родителя (ширина-высота)
@@ -52,25 +52,24 @@ fetch('http://83.167.124.57/get-tree/')
                 // root.children.forEach(collapse);
                 update(root);
 
-                d3.select("#body").style("height", "2500px");
+                d3.select("#body").style("height", "500px");
 
                 function update(source) {
-
-                    // Compute the new tree layout.
+                // Compute the new tree layout.
                     let nodes = tree.nodes(root).reverse(),
                         links = tree.links(nodes);
-                    // Длина стрелок
+                // Длина стрелок
                     nodes.forEach(function (d) {
                         d.y = d.depth * 180;
                     });
 
-                    // Update the nodes…
+                // Update the nodes…
                     let node = svg.selectAll("g.node")
                         .data(nodes, function (d) {
                             return d.id || (d.id = ++i);
                         });
 
-                    // Введите любые новые узлы в предыдущей позиции родителя.
+                // Введите любые новые узлы в предыдущей позиции родителя.
                     let nodeEnter = node.enter().append("g")
                         .attr("class", "node")
                         .attr("transform", function (d) {
@@ -78,7 +77,7 @@ fetch('http://83.167.124.57/get-tree/')
                         })
                         .on("click", click);
 
-                    // Положение   прямоугольников и его стили
+                // Положение   прямоугольников и его стили
                     nodeEnter.append("rect")
                         .attr("width", rectW)
                         .attr("height", rectH)
@@ -87,7 +86,7 @@ fetch('http://83.167.124.57/get-tree/')
                         .style("fill", function (d) {
                             return d._children ? "#FFE599" : "#edbf35";
                         });
-                    // Положение текста внутри прямоугольников и его стили
+                // Положение текста внутри прямоугольников и его стили
                     nodeEnter.append("text")
                         .attr("x", rectW / 2)
                         .attr("y", rectH / 2)
@@ -98,7 +97,7 @@ fetch('http://83.167.124.57/get-tree/')
 
                         });
 
-                    // Перемещаем узлы в их новую позицию.
+                // Перемещаем узлы в их новую позицию.
                     let nodeUpdate = node.transition()
                         .duration(duration)
                         .attr("transform", function (d) {
@@ -118,7 +117,7 @@ fetch('http://83.167.124.57/get-tree/')
                         .style("fill-opacity", 1);
 
 
-                    // Переход существующих узлов в новую позицию родителя.А
+                // Переход существующих узлов в новую позицию родителя.А
                     let nodeExit = node.exit().transition()
                         .duration(duration)
                         .attr("transform", function (d) {
@@ -187,6 +186,7 @@ fetch('http://83.167.124.57/get-tree/')
                 //Переключать дочерние элементы по клику.
                 function click(d) {
                     console.log(typeof d)
+                    console.log(d.attachments[0])
                     if (d.children) {
                         // Свернуть
                         d._children = d.children;
@@ -200,20 +200,32 @@ fetch('http://83.167.124.57/get-tree/')
                         let name = d.name;
                         let name_en = d.name_en;
                         let more_link = d.more_link
-                        let file = d['attachments']
-                        let attachment
-                        for(attachment in d.attachments){
-                            console.log(attachment)
-                        }
-                        console.log(attachment + ' AAAAAAAAa')
+                        let file
+                        let name_file
+                        let img
+                        let attachments = d.attachments
+                        attachments.map(att => {
+                            console.log(att)
+                            file = att.file
+                            name_file = att.name
+                            img = att.img
+                        })
+               
+                        let file_attachments = document.getElementById("file_attachments");
+                        file_attachments.href = file;
+
+                        let more_links = document.getElementById("more_link")
+                        more_links.href = more_link
+                      
 
                         let b = d.id
                         document.getElementById('info-block').style.display = 'block';
                         document.getElementById('name').innerHTML = name
                         document.getElementById('name_en').innerHTML = name_en
-                        document.getElementById('more_link').innerHTML = more_link
                         document.getElementById('description').innerHTML = a
                         document.getElementById('file').innerHTML = file
+                        document.getElementById('name_file').innerHTML = name_file
+                        document.getElementById('img').innerHTML = img
 
                         document.getElementById('description1').innerHTML = b
        
