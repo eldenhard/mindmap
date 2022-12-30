@@ -1,4 +1,3 @@
-
 let margin = {
     top: 20,
     right: 120,
@@ -30,7 +29,7 @@ fetch('http://83.167.124.57/get-tree/')
                 // Задает ширину блока в котором находится схема
                 let svg = d3.select("#body").append("svg").attr("width", "100%").attr("height", 900)
                     // Приближение отдаление
-                    .call(zm = d3.behavior.zoom().scaleExtent([0.6, 10]).on("zoom", redraw)).append("g")
+                    .call(zm = d3.behavior.zoom().scaleExtent([0.4, 10]).on("zoom", redraw)).append("g")
                     // Задает положение блока схемы внутри родителя (ширина-высота)
                     .attr("transform", "translate(" + 700 + "," + 100 + ")");
 
@@ -42,15 +41,15 @@ fetch('http://83.167.124.57/get-tree/')
                 root.x0 = 0;
                 root.y0 = height / 2;
 
-                function collapse(d) {
-                    if (d.children) {
-                        d._children = d.children;
-                        d._children.forEach(collapse);
-                        d.children = null;
-                    }
-                }
+                // function collapse(d) {
+                //     if (d.children) {
+                //         d._children = d.children;
+                //         d._children.forEach(collapse);
+                //         d.children = null;
+                //     }
+                // }
 
-                root.children.forEach(collapse);
+                // root.children.forEach(collapse);
                 update(root);
 
                 d3.select("#body").style("height", "2500px");
@@ -60,7 +59,6 @@ fetch('http://83.167.124.57/get-tree/')
                     // Compute the new tree layout.
                     let nodes = tree.nodes(root).reverse(),
                         links = tree.links(nodes);
-
                     // Длина стрелок
                     nodes.forEach(function (d) {
                         d.y = d.depth * 180;
@@ -184,23 +182,44 @@ fetch('http://83.167.124.57/get-tree/')
                         d.y0 = d.y;
                     });
                 }
+           
 
-                // Переключать дочерние элементы по клику.
+                //Переключать дочерние элементы по клику.
                 function click(d) {
+                    console.log(typeof d)
                     if (d.children) {
                         // Свернуть
                         d._children = d.children;
-
                         d.children = null;
+
                     } else {
                         //Развернуть
                         d.children = d._children;
                         d._children = null;
+                        let a = d.text;
+                        let name = d.name;
+                        let name_en = d.name_en;
+                        let more_link = d.more_link
+                        let file = d['attachments']
+                        let attachment
+                        for(attachment in d.attachments){
+                            console.log(attachment)
+                        }
+                        console.log(attachment + ' AAAAAAAAa')
 
-                        console.log(d.id + ' справка')
+                        let b = d.id
+                        document.getElementById('info-block').style.display = 'block';
+                        document.getElementById('name').innerHTML = name
+                        document.getElementById('name_en').innerHTML = name_en
+                        document.getElementById('more_link').innerHTML = more_link
+                        document.getElementById('description').innerHTML = a
+                        document.getElementById('file').innerHTML = file
+
+                        document.getElementById('description1').innerHTML = b
+       
 
                     }
-                    update(d);
+                    // update(d);
                 }
 
                 //Redraw for zoom
@@ -220,3 +239,10 @@ fetch('http://83.167.124.57/get-tree/')
 
             })
     })
+
+
+document.getElementById('close').onclick = function () {
+    document.getElementById('info-block').style.display = 'none';
+
+}
+

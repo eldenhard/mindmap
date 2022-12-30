@@ -1,15 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
   <title>Document</title>
   <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
   <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
-  <div id="body" style="position: relative !important; left: 50% !important; transform: translate(-50%, 0) !important;"></div>
+  <div class="info-block" id="info-block">
+    <div class="info-block-wrapper">
+
+      <h2 id="name"></h2>
+      <h3 id="name_en"></h3>
+      <p id="description"></p>
+      <a href="more_link" id="more_link"></a>
+      <p id="description1"></p>
+        <div class="attachments">
+            <p id="file"></p>
+            <img src="" alt="">
+            <p id="name_attachments"></p>
+        </div>
+    </div>
+ <button class="close" id="close">Закрыть</button>
+
+  </div>
+
+  <div id="body" style="position: relative !important; left: 50% !important; transform: translate(-50%, 0) !important;">
+  </div>
+
   <script src="main.js"></script>
 </body>
+
 </html>

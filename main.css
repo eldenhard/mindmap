@@ -6,6 +6,7 @@
   font: 11px 'Montserrat', sans-serif;
   font-weight: 600;
 }
+
 .link {
   fill: none;
   stroke: #ccc;
@@ -16,14 +17,57 @@ body {
   overflow: hidden;
 }
 
-svg{
+#body {
+  background: lightgrey;
+}
+
+svg {
   background: rgb(255, 255, 255);
   position: relative;
   left: 50%;
-  transform: translate(-50%,0);
+  transform: translate(-50%, 0);
   cursor: grab;
-  border: 1px solid lightgrey;
+  border: 1px solid rgb(192, 192, 192);
 }
-svg:active{
+
+svg:active {
   cursor: grabbing;
+}
+
+.info-block {
+  background-color: rgb(255, 255, 255);
+  width: 45%;
+  height: 900px;
+  margin-top: 0.5em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  border: 1px solid lightgray;
+  display: none;
+}
+.info-block-wrapper{
+  padding: 20px;
+}
+.close {
+  background: #F70000;
+  color: white;
+  border: none;
+  outline: none;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  height: 50px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+.close:hover{
+  background: #b90000;
+  cursor: pointer;
+}
+#name{
+  text-align: center;
+}
+#name_en{
+  text-align: center;
 }
