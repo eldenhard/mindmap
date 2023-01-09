@@ -6,7 +6,7 @@ hr {
   padding: 0;
 }
 .node text {
-  font: 11px 'Montserrat', sans-serif;
+  font: 13px 'Montserrat', sans-serif;
   font-weight: 600;
 }
 
@@ -20,10 +20,11 @@ body {
   overflow: hidden;
 }
 
-
+rect{
+  border: none !important
+}
 svg {
   background: rgb(255, 255, 255);
-  /* background: red; */
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
@@ -54,19 +55,25 @@ nav {
 
 .info-block {
   background-color: rgb(255, 255, 255);
-  width: 35%;
+  width: 30%;
   height: 800px;
   position: absolute;
   right: 0;
   z-index: 1;
-  border: 1px solid lightgray;
+  border-left: 1px solid lightgray;
   display: none;
   margin: none !important;
+  animation: info-block-animation 1s forwards;
+  box-shadow: -10px 10px 25px rgb(218, 218, 218);
 }
-
+@keyframes info-block-animation {
+  0% {transform: translateX(150%);}
+  100% {transform: translateY(0);}
+}
 .info-block-wrapper{
   padding: 20px;
 }
+
 .close {
   background: #F70000;
   color: white;
@@ -100,15 +107,14 @@ nav {
   background:  #d60000;
 }
 .main-block{
-  width: 38%;
+  width: 30%;
   position: relative;
   left: 50%;
   transform: translate(-50%,0);
   margin-top: 2%;
-}
-.main-block h1 p{
   text-align: left;
 }
+
 
 .link{
 	color: #000000;

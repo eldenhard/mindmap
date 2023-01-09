@@ -18,7 +18,7 @@ fetch('http://83.167.124.57/get-tree/')
                 // Размер прямoугольников
                     duration = 750,
                     rectW = 300,
-                    rectH = 30;
+                    rectH = 50;
                 // размер разлета направляющих
                 let tree = d3.layout.tree().nodeSize([320, 40]);
                 let diagonal = d3.svg.diagonal()
@@ -27,7 +27,7 @@ fetch('http://83.167.124.57/get-tree/')
                         return [d.x + rectW / 2, d.y + rectH / 2];
                     });
                 // Задает ширину блока в котором находится схема
-                let svg = d3.select("#body").append("svg").attr("width", "100%").attr("height", 800)
+                let svg = d3.select("#body").append("svg").attr("width", "80%").attr("height", 800)
                     // Приближение отдаление
                     .call(zm = d3.behavior.zoom().scaleExtent([0.4, 10]).on("zoom", redraw)).append("g")
                     // Задает положение блока схемы внутри родителя (ширина-высота)
