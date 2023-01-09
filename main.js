@@ -9,23 +9,75 @@ let margin = {
 
 
 fetch('http://83.167.124.57/get-tree/')
-    .then(response => {
-        return response.json()
+    .then(response => response.json())
             .then(res => {
                 let root = {}
-                root = res[0];
+                root = res[0]
+                let ApplChildName;
+                let mainChild = res[0].children
+                // Хранится архитектура приложения
+                let ApplicationLevelArchitecture
+                let child
+                for (child of mainChild) {
+                    if (child.name == 'Архитектура Предприятия') continue
+                    ApplicationLevelArchitecture = child
+                }
+
+                let ApplChildren = ApplicationLevelArchitecture.children
+                let words;
+                let resp;
+                let cur_str;
+                let trimStrResponse;
+                for (let i in ApplChildren) {
+                    ApplChildName = ApplChildren[i].name
+                    function splitN(str, N) {
+                        words = str.trim().split(/\s+/g);
+                        resp = [];
+                        cur_str = words.shift();
+                        for (const word of words) {
+                            if (cur_str.length + 1 + word.length >= N || cur_str.length >= N) {
+                                resp.push(cur_str);
+                                cur_str = word;
+                            } else {
+
+                                cur_str += ' ' + word;
+                            }
+                        }
+                        resp.push(cur_str);
+
+                        trimStrResponse = resp.join('\n')
+                        console.log(trimStrResponse)
+                       
+
+                    }
+                    splitN(ApplChildName, 20);
+                }
+                let cloneRoot = {}
+                for (let key in child) {
+                    cloneRoot[key] = child[key];
+                }
+           
+                cloneRoot =  Object.defineProperty(root.children[1].children, "name",  {value : [trimStrResponse]}); 
+               console.log(cloneRoot)
+                // root = cloneRoot
+
+
+                // root = ApplChildName;
+                // console.log(ApplicationLevelArchitecture)
+
                 let i = 0,
-                // Размер прямoугольников
+                    // Размер прямoугольников
                     duration = 750,
-                    rectW = 300,
-                    rectH = 50;
+                    rectW = 350,
+                    rectH = 70;
                 // размер разлета направляющих
-                let tree = d3.layout.tree().nodeSize([320, 40]);
+                let tree = d3.layout.tree().nodeSize([420, 300]);
                 let diagonal = d3.svg.diagonal()
                     .projection(function (d) {
-                // Откуда будут исходить стрелки к элементам(ставит посередине блока)
+                        // Откуда будут исходить стрелки к элементам(ставит посередине блока)
                         return [d.x + rectW / 2, d.y + rectH / 2];
                     });
+
                 // Задает ширину блока в котором находится схема
                 let svg = d3.select("#body").append("svg").attr("width", "80%").attr("height", 800)
                     // Приближение отдаление
@@ -55,21 +107,21 @@ fetch('http://83.167.124.57/get-tree/')
                 d3.select("#body").style("height", "500px");
 
                 function update(source) {
-                // Compute the new tree layout.
+                    // Compute the new tree layout.
                     let nodes = tree.nodes(root).reverse(),
                         links = tree.links(nodes);
-                // Длина стрелок
+                    // Длина стрелок
                     nodes.forEach(function (d) {
-                        d.y = d.depth * 180;
+                        d.y = d.depth * 200;
                     });
 
-                // Update the nodes…
+                    // Update the nodes…
                     let node = svg.selectAll("g.node")
                         .data(nodes, function (d) {
                             return d.id || (d.id = ++i);
                         });
 
-                // Введите любые новые узлы в предыдущей позиции родителя.
+                    // Введите любые новые узлы в предыдущей позиции родителя.
                     let nodeEnter = node.enter().append("g")
                         .attr("class", "node")
                         .attr("transform", function (d) {
@@ -77,7 +129,7 @@ fetch('http://83.167.124.57/get-tree/')
                         })
                         .on("click", click);
 
-                // Положение   прямоугольников и его стили
+                    // Положение   прямоугольников и его стили
                     nodeEnter.append("rect")
                         .attr("width", rectW)
                         .attr("height", rectH)
@@ -86,7 +138,7 @@ fetch('http://83.167.124.57/get-tree/')
                         .style("fill", function (d) {
                             return d._children ? "#FFE599" : "#edbf35";
                         });
-                // Положение текста внутри прямоугольников и его стили
+                    // Положение текста внутри прямоугольников и его стили
                     nodeEnter.append("text")
                         .attr("x", rectW / 2)
                         .attr("y", rectH / 2)
@@ -97,7 +149,7 @@ fetch('http://83.167.124.57/get-tree/')
 
                         });
 
-                // Перемещаем узлы в их новую позицию.
+                    // Перемещаем узлы в их новую позицию.
                     let nodeUpdate = node.transition()
                         .duration(duration)
                         .attr("transform", function (d) {
@@ -117,7 +169,7 @@ fetch('http://83.167.124.57/get-tree/')
                         .style("fill-opacity", 1);
 
 
-                // Переход существующих узлов в новую позицию родителя.А
+                    // Переход существующих узлов в новую позицию родителя.А
                     let nodeExit = node.exit().transition()
                         .duration(duration)
                         .attr("transform", function (d) {
@@ -181,12 +233,10 @@ fetch('http://83.167.124.57/get-tree/')
                         d.y0 = d.y;
                     });
                 }
-           
+
 
                 //Переключать дочерние элементы по клику.
                 function click(d) {
-                    console.log(typeof d)
-                    console.log(d.attachments[0])
                     if (d.children) {
                         // Свернуть
                         d._children = d.children;
@@ -205,18 +255,17 @@ fetch('http://83.167.124.57/get-tree/')
                         let img
                         let attachments = d.attachments
                         attachments.map(att => {
-                            console.log(att)
                             file = att.file
                             name_file = att.name
                             img = att.img
                         })
-               
+
                         let file_attachments = document.getElementById("file_attachments");
                         file_attachments.href = file;
 
                         let more_links = document.getElementById("more_link")
                         more_links.href = more_link
-                      
+
 
                         let b = d.id
                         document.getElementById('info-block').style.display = 'block';
@@ -228,7 +277,7 @@ fetch('http://83.167.124.57/get-tree/')
                         document.getElementById('img').innerHTML = img
 
                         document.getElementById('description1').innerHTML = b
-       
+
 
                     }
                     // update(d);
@@ -245,12 +294,8 @@ fetch('http://83.167.124.57/get-tree/')
 
 
 
-
-
-
-
             })
-    })
+  
 
 
 document.getElementById('close').onclick = function () {
