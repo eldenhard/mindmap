@@ -23,42 +23,15 @@ fetch('http://83.167.124.57/get-tree/')
                     ApplicationLevelArchitecture = child
                 }
 
-                let ApplChildren = ApplicationLevelArchitecture.children
-                let words;
-                let resp;
-                let cur_str;
+
                 let trimStrResponse;
-                for (let i in ApplChildren) {
-                    ApplChildName = ApplChildren[i].name
-                    function splitN(str, N) {
-                        words = str.trim().split(/\s+/g);
-                        resp = [];
-                        cur_str = words.shift();
-                        for (const word of words) {
-                            if (cur_str.length + 1 + word.length >= N || cur_str.length >= N) {
-                                resp.push(cur_str);
-                                cur_str = word;
-                            } else {
 
-                                cur_str += ' ' + word;
-                            }
-                        }
-                        resp.push(cur_str);
-
-                        trimStrResponse = resp.join('\n')
-                        console.log(trimStrResponse)
-                       
-
-                    }
-                    splitN(ApplChildName, 20);
-                }
                 let cloneRoot = {}
                 for (let key in child) {
                     cloneRoot[key] = child[key];
                 }
            
                 cloneRoot =  Object.defineProperty(root.children[1].children, "name",  {value : [trimStrResponse]}); 
-               console.log(cloneRoot)
                 // root = cloneRoot
 
 
@@ -250,35 +223,18 @@ fetch('http://83.167.124.57/get-tree/')
                         let name = d.name;
                         let name_en = d.name_en;
                         // let more_link = d.more_link
-                        let file
-                        let name_file
-                        let img
-                        let attachments = d.attachments
+                        let more_link = d.more_link;
+                        let attachments = d.attachments;
                         attachments.map(att => {
                             file = att.file
                             name_file = att.name
                             img = att.img
                         })
-
-                        // let file_attachments = document.getElementById("file_attachments");
-                        // file_attachments.href = file;
-
-                        // let more_links = document.getElementById("more_link")
-                        // more_links.href = more_link
-
-
-                        let b = d.id
                         document.getElementById('info-block').style.display = 'block';
                         document.getElementById('name').innerHTML = name
                         document.getElementById('name_en').innerHTML = name_en
                         document.getElementById('description').innerHTML = a
-                        document.getElementById('file').innerHTML = file
-                        document.getElementById('name_file').innerHTML = name_file
-                        document.getElementById('img').innerHTML = img
-
-                        document.getElementById('description1').innerHTML = b
-
-
+                        document.getElementById('more_link').innerHTML = more_link ?? 'Приложений нет'
                     }
                     // update(d);
                 }
