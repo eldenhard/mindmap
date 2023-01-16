@@ -8,6 +8,7 @@ let margin = {
     width = 700 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
 LOADER.style.display = 'block'
+document.querySelector('.all-info').style.display = 'none'
 fetch('http://83.167.124.57/get-tree/')
     .then(response => response.json())
     .then(res => {
@@ -253,6 +254,6 @@ fetch('http://83.167.124.57/get-tree/')
     })
 
 setTimeout(() => LOADER.style.display = 'none', 1200)
-
+setTimeout(() => document.querySelector('.all-info').style.display = 'block', 1200)
 
 
