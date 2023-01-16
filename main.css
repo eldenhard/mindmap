@@ -16,12 +16,13 @@ hr {
   stroke-width: 1.5px;
 }
 
-body {
-  overflow: hidden;
-}
+
 
 rect{
   border: none !important
+}
+rect:focus{
+  background: red;
 }
 svg {
   background: rgb(255, 255, 255);
@@ -73,7 +74,10 @@ nav {
 .info-block-wrapper{
   padding: 20px;
 }
-
+.info-block-wrapper-scroll {
+  height: 40vh;
+  overflow: auto;
+}
 .close {
   background: #F70000;
   color: white;
@@ -161,4 +165,7 @@ nav {
 .link:hover::before{
 	transition-duration: .15s;
 }
-
+.about_project {
+  height: 50vh;
+  margin-top: 10%;
+}

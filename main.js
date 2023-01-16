@@ -68,7 +68,7 @@ fetch('http://83.167.124.57/get-tree/')
                 let i = 0,
                     // Размер прямoугольников
                     duration = 750,
-                    rectW = 350,
+                    rectW = 400,
                     rectH = 70;
                 // размер разлета направляющих
                 let tree = d3.layout.tree().nodeSize([420, 300]);
@@ -249,7 +249,7 @@ fetch('http://83.167.124.57/get-tree/')
                         let a = d.text;
                         let name = d.name;
                         let name_en = d.name_en;
-                        let more_link = d.more_link
+                        // let more_link = d.more_link
                         let file
                         let name_file
                         let img
@@ -260,11 +260,11 @@ fetch('http://83.167.124.57/get-tree/')
                             img = att.img
                         })
 
-                        let file_attachments = document.getElementById("file_attachments");
-                        file_attachments.href = file;
+                        // let file_attachments = document.getElementById("file_attachments");
+                        // file_attachments.href = file;
 
-                        let more_links = document.getElementById("more_link")
-                        more_links.href = more_link
+                        // let more_links = document.getElementById("more_link")
+                        // more_links.href = more_link
 
 
                         let b = d.id
